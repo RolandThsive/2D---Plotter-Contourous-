@@ -3,8 +3,8 @@
 from math import acos, atan2, cos, sin
 
 #lengths of Joints, will crash if a length is 0
-b1 = 50
-b2 = 50
+b1 = 221.86
+b2 = 121.86
 
 #Final position of EOAT
 endX = 0
