@@ -19,12 +19,26 @@ cv2.imshow('treshold', im_bw)
 cv2.waitKey(0)
 
 #FindContours
-contours, hierarchy = cv2.findContours(im_bw, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) 
+contours, hierarchy = cv2.findContours(im_bw, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 
 print("Number of Contours found = " + str(len(contours)))
 
 #Show Contours
-cv2.drawContours(image, contours, -1, (0, 255, 0), 3)
+for cnt in contours : 
+
+    approx = cv2.approxPolyDP(cnt, 0.009 * cv2.arcLength(cnt, True), True) 
+    cv2.drawContours(image, [approx], -1, (0, 0 , 255), 3)
+    n = approx.ravel() 
+    i = 0
+
+    for j in n : 
+        if(i % 2 == 0): 
+            x = n[i] 
+            y = n[i + 1] 
+            i=i+1
+    
 cv2.imshow('Contours', image)
+
+print(contours[1])
 
 cv2.waitKey(0)
 
