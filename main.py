@@ -18,7 +18,7 @@ while(True):
     result, image = cam.read()
     cv2.imshow('frame', image)
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        cv2.imwrite(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\hh.jpg", image)
+        cv2.imwrite(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\hh.jpg", image) #devide bby 2.5 for picture to fit in format
         break
 cam.release()
 cv2.destroyAllWindows()

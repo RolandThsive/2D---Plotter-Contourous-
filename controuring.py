@@ -40,7 +40,7 @@ def contouring():
         
     cv2.imshow('Contours', image)
 
-    #print(contours[1])
+    print(contours[1])
 
     cv2.waitKey(0)
 
