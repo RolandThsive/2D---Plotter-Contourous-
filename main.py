@@ -13,7 +13,7 @@ import cv2
 # image processed has to be saved in C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\pic.jpg")
 
 #get image from webcam
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 while(True):
     result, image = cam.read()
     cv2.imshow('frame', image)
@@ -27,3 +27,4 @@ cv2.destroyAllWindows()
 contours = ctr() #get contours
 
 
+ 
