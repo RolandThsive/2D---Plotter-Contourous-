@@ -7,13 +7,13 @@ def contouring():
     image = cv2.imread(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\hh.jpg")
 
     #grayscale
-    cv2.imshow('Original',image)
-    cv2.waitKey(0)
+    #cv2.imshow('Original',image)
+    #cv2.waitKey(0)
     grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-    cv2.imshow('Grayscale', grayscale)
+    #cv2.imshow('Grayscale', grayscale)
     grayscale = grayscale.astype("uint8")
 
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
 
         #------------------------# laplacian #------------------------#
     #laplacian = cv2.Laplacian(grayscale,cv2.THRESH_BINARY)
@@ -23,8 +23,8 @@ def contouring():
         #------------------------# canny #------------------------#
     
     canny = cv2.Canny(grayscale,100,200)
-    cv2.imshow("edges",canny)
-    cv2.waitKey(0)
+    #cv2.imshow("edges",canny)
+    #cv2.waitKey(0)
     
         #------------------------# sobel #------------------------#
         
@@ -67,13 +67,15 @@ def contouring():
                 i=i+1
         
     cv2.imshow('Contours', image)
+    
+    #print(contours[1][1][0][1])
 
     #print(contours[1])
 
-    cv2.waitKey(0)
+    #cv2.waitKey(0)
 
     #kill
-    cv2.destroyAllWindows()
+    #cv2.destroyAllWindows()
 
     return contours #contours are separated in different vectors of point, contours[1][0] gives the first point of the first interesting contour
 #points coordinates with openCV coordinate system, to come back to a normal coordinate system, xnew = xold & ynew = ymax - yold
