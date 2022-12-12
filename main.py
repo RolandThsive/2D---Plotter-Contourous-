@@ -11,6 +11,7 @@
 from controuring import contouring as ctr
 from Kinematics import coordtoangles as cta
 import cv2
+from test import motors as rbt
 # image processed has to be saved in C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\pic.jpg")
 
 #get image from webcam
@@ -22,7 +23,7 @@ while(True):
     result, image = cam.read()
     cv2.imshow('frame', image)
     if cv2.waitKey(1) & 0xFF == ord('q'):
-        cv2.imwrite(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\hh.jpg", image) #devide bby 2.5 for picture to fit in format
+        cv2.imwrite(r"C:\Users\Luc Pichot\Documents\GitHub\2D---Plotter-Contourous-\hh.jpg", image) #devide bby 2.5 for picture to fit in format
         break
 cam.release()
 cv2.destroyAllWindows()
@@ -32,4 +33,6 @@ imgSize = image.shape
 contours = ctr() #get contours
 
 angles = cta(contours,imgSize) #get angles
+
+rbt(angles)
 
