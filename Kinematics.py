@@ -18,7 +18,7 @@ def coordtoangles(contours,imgSize):
     #print(listcontours[0])
     #print(listcontours[0][0])
 
-    safetyFact = 0.8
+    safetyFact = 1
     yimgSize = imgSize[0]
     xImgSize = imgSize[1]
     yPaperSize = 210*safetyFact
@@ -54,14 +54,31 @@ def coordtoangles(contours,imgSize):
                 print('impossible target and/or error')
             else:
             #Calculation of angles for end pos
-                q2 = acos( (pow(endX-x0,2)+pow(endY-y0,2)-pow(a1,2)-pow(a2,2)) / (2*a1*a2) );
-                q1 = atan2( (endY-y0) , (endX-x0)) + atan2( (a2*sin(q2)) , (a1+a2*cos(q2)) );
+                q2 = acos((endX*endX+endY*endY-a1*a1-a2*a2)/(2*a1*a2))
+                q1 = atan2(endY, endX)-atan2(a2*sin(q2), a1 + a2*cos(q2))
 
                 listcontours[i][j][0][0] = degrees(q1)
                 listcontours[i][j][0][1] = degrees(q2)
+                
+                if j%50 == 0:
+                    #forward kinematics:
+                    forwardX = a1*cos(q1)+a2*cos(q1+q2)
+                    forwardY = a1*sin(q1)+a2*sin(q1+q2)
+                    
+                    
+                    print('endX: ')
+                    print(endX)
+                    print('forwardX: ')
+                    print(forwardX)
+                    print('endY: ')
+                    print(endY)
+                    print('forwardY: ')
+                    print(forwardY)
+                    print('-------')
+                
                         
     angles = listcontours
-        
+    
     return angles
 
 
