@@ -5,78 +5,83 @@ import numpy as np
 
 def coordtoangles(contours,imgSize):
 
-    #lengths of Joints, will crash if a length is 0
+    #lengths of Joints
     a1 = 221.86
     a2 = 121.86
     
+    #Point of Origin
     x0 = 0
     y0 = 0
+    
+    #Reach bounderies of Robot
     farReach = a1+a2
     closeReach = a1-a2
     
+    #converting contours array in list
     listcontours = list(contours)
-    #print(listcontours[0])
-    #print(listcontours[0][0])
 
-    safetyFact = 1
-    yimgSize = imgSize[0]
+    #Scaling picture to fit in paper
+    safetyFact = 1                      #Optional additional factor should be between 0 and 1
+    yimgSize = imgSize[0]               #Get size
     xImgSize = imgSize[1]
-    yPaperSize = 210*safetyFact
-    xPaperSize = 297*safetyFact
+    #yPaperSize = 210*safetyFact
+    #xPaperSize = 297*safetyFact
+    yPaperSize = 100
+    xPaperSize = 100
 
-    yScale = yimgSize/yPaperSize
+    yScale = yimgSize/yPaperSize        #Get side scaling
     xScale = xImgSize/xPaperSize
-    if(yScale>xScale):
+    if(yScale>xScale):                  #Scale image in reference to largest difference
         scale = yScale
     else:
         scale = xScale
-        
+    
+    #Set translations
     xTranslate = -xPaperSize/2
-    yTranslate = 100
-    print('endX : ')
-    print(listcontours[0][0][0][1])
-    print('   endY : ')
-    print(listcontours[0][0][0][0])
-
+    yTranslate = closeReach
+    
+    #Main Loop running for each point of each contour
+    
     for i, icontour in enumerate(listcontours): 
         for j, contourpoint in enumerate(icontour):
         #Final position of EOAT
             
-            endX = contourpoint[0][0]/scale + xTranslate
-            endY = (yimgSize - contourpoint[0][1])/scale + yTranslate
+            #Scaling each point and translating reference frame
+            endX = contourpoint[0][0]/scale+xTranslate
+            endY = contourpoint[0][1]/scale+yTranslate
             
+            #endX = contourpoint[0][0]/scale + xTranslate
+            #endY = (yimgSize - contourpoint[0][1])/scale + yTranslate
             
-            
+            #Distance Reached at point from origin
             triedDist = sqrt( pow(x0-endX,2) + pow(y0-endY,2) );
-            #print("tried dist: ")
-            #print(triedDist)
+
+            #See if point is actually reachable
             if triedDist > farReach or triedDist < closeReach:
                 print('impossible target and/or error')
             else:
             #Calculation of angles for end pos
                 q2 = acos((endX*endX+endY*endY-a1*a1-a2*a2)/(2*a1*a2))
                 q1 = atan2(endY, endX)-atan2(a2*sin(q2), a1 + a2*cos(q2))
-
+            #Writing angles into list 
                 listcontours[i][j][0][0] = degrees(q1)
                 listcontours[i][j][0][1] = degrees(q2)
                 
-                if j%50 == 0:
+            #Forward Kinematics calculation to verify
+                if j%10 == 0:
                     #forward kinematics:
                     forwardX = a1*cos(q1)+a2*cos(q1+q2)
                     forwardY = a1*sin(q1)+a2*sin(q1+q2)
-                    
-                    
                     print('endX: ')
                     print(endX)
-                    print('forwardX: ')
-                    print(forwardX)
+                    #print('forwardX: ')
+                    #print(forwardX)
                     print('endY: ')
                     print(endY)
-                    print('forwardY: ')
-                    print(forwardY)
+                    #print('forwardY: ')
+                    #print(forwardY)
                     print('-------')
-                
-                        
+
     angles = listcontours
     
     return angles
