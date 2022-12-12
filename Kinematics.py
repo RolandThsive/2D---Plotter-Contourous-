@@ -24,15 +24,12 @@ def coordtoangles(contours,imgSize):
     yPaperSize = 210*safetyFact
     xPaperSize = 297*safetyFact
 
-    if(yimgSize>yPaperSize):
-        yScale = yimgSize/yPaperSize
-    if(xImgSize>xPaperSize):
-        xScale = xImgSize/xPaperSize
-    if(yScale != 0 or xScale != 0):
-        if(yScale>xScale):
-            scale = yScale
-        else:
-            scale = xScale
+    yScale = yimgSize/yPaperSize
+    xScale = xImgSize/xPaperSize
+    if(yScale>xScale):
+        scale = yScale
+    else:
+        scale = xScale
         
     xTranslate = -xPaperSize/2
     yTranslate = 100

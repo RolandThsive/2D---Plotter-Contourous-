@@ -4,7 +4,7 @@ import numpy as np
 
 # read the image
 def contouring():
-    image = cv2.imread(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\testrect1.png")
+    image = cv2.imread(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\hh.jpg")
 
     #grayscale
     #cv2.imshow('Original',image)
