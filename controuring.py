@@ -4,7 +4,7 @@ import numpy as np
 
 # read the image
 def contouring():
-    image = cv2.imread(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\test_rect.png")
+    image = cv2.imread(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\testrect1.png")
 
     #grayscale
     #cv2.imshow('Original',image)
@@ -13,7 +13,7 @@ def contouring():
     #cv2.imshow('Grayscale', grayscale)
     grayscale = grayscale.astype("uint8")
 
-    #cv2.waitKey(0)
+    cv2.waitKey(0)
 
         #------------------------# laplacian #------------------------#
     #laplacian = cv2.Laplacian(grayscale,cv2.THRESH_BINARY)
@@ -23,8 +23,8 @@ def contouring():
         #------------------------# canny #------------------------#
     
     canny = cv2.Canny(grayscale,100,200)
-    #cv2.imshow("edges",canny)
-    #cv2.waitKey(0)
+    cv2.imshow("edges",canny)
+    cv2.waitKey(0)
     
         #------------------------# sobel #------------------------#
         
@@ -72,7 +72,7 @@ def contouring():
 
     #print(contours[1])
 
-    #cv2.waitKey(0)
+    cv2.waitKey(0)
 
     #kill
     #cv2.destroyAllWindows()

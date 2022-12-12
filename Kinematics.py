@@ -3,7 +3,7 @@
 from math import acos, atan, cos, sin, atan2, degrees,sqrt
 import numpy as np
 
-def coordtoangles(contours):
+def coordtoangles(contours,imgSize):
 
     #lengths of Joints, will crash if a length is 0
     a1 = 221.86
@@ -18,29 +18,50 @@ def coordtoangles(contours):
     #print(listcontours[0])
     #print(listcontours[0][0])
 
-    scale = 2.5
-    xTranslate = 0
+    safetyFact = 0.8
+    yimgSize = imgSize[0]
+    xImgSize = imgSize[1]
+    yPaperSize = 210*safetyFact
+    xPaperSize = 297*safetyFact
+
+    if(yimgSize>yPaperSize):
+        yScale = yimgSize/yPaperSize
+    if(xImgSize>xPaperSize):
+        xScale = xImgSize/xPaperSize
+    if(yScale != 0 or xScale != 0):
+        if(yScale>xScale):
+            scale = yScale
+        else:
+            scale = xScale
+        
+    xTranslate = -xPaperSize/2
     yTranslate = 100
-    
+    print('endX : ')
+    print(listcontours[0][0][0][1])
+    print('   endY : ')
+    print(listcontours[0][0][0][0])
 
     for i, icontour in enumerate(listcontours): 
         for j, contourpoint in enumerate(icontour):
         #Final position of EOAT
-            endX = contourpoint[0][1]/scale + xTranslate
-            endY = contourpoint[0][0]/scale + yTranslate
-    
-        triedDist = sqrt( pow(x0-endX,2) + pow(y0-endY,2) );
-        print("q2: ")
-        print(triedDist)
-        if triedDist > farReach or triedDist < closeReach:
-            print('impossible target and/or error')
-        else:
-        #Calculation of angles for end pos
-            q2 = acos( (pow(endX-x0,2)+pow(endY-y0,2)-pow(a1,2)-pow(a2,2)) / (2*a1*a2) );
-            q1 = atan2( (endY-y0) , (endX-x0)) + atan2( (a2*sin(q2)) , (a1+a2*cos(q2)) );
+            
+            endX = contourpoint[0][0]/scale + xTranslate
+            endY = (yimgSize - contourpoint[0][1])/scale + yTranslate
+            
+            
+            
+            triedDist = sqrt( pow(x0-endX,2) + pow(y0-endY,2) );
+            #print("tried dist: ")
+            #print(triedDist)
+            if triedDist > farReach or triedDist < closeReach:
+                print('impossible target and/or error')
+            else:
+            #Calculation of angles for end pos
+                q2 = acos( (pow(endX-x0,2)+pow(endY-y0,2)-pow(a1,2)-pow(a2,2)) / (2*a1*a2) );
+                q1 = atan2( (endY-y0) , (endX-x0)) + atan2( (a2*sin(q2)) , (a1+a2*cos(q2)) );
 
-            listcontours[i][j][0][0] = degrees(q1)
-            listcontours[i][j][0][1] = degrees(q2)
+                listcontours[i][j][0][0] = degrees(q1)
+                listcontours[i][j][0][1] = degrees(q2)
                         
     angles = listcontours
         
