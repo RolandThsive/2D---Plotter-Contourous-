@@ -21,13 +21,13 @@ def coordtoangles(contours,imgSize):
     listcontours = list(contours)
 
     #Scaling picture to fit in paper
-    safetyFact = 1                      #Optional additional factor should be between 0 and 1
+    safetyFact = 0.15                     #Optional additional factor should be between 0 and 1
     yimgSize = imgSize[0]               #Get size
     xImgSize = imgSize[1]
-    #yPaperSize = 210*safetyFact
-    #xPaperSize = 297*safetyFact
-    yPaperSize = 100
-    xPaperSize = 100
+    yPaperSize = 210*safetyFact
+    xPaperSize = 297*safetyFact
+    #yPaperSize = 100
+    #xPaperSize = 100
 
     yScale = yimgSize/yPaperSize        #Get side scaling
     xScale = xImgSize/xPaperSize
@@ -68,18 +68,18 @@ def coordtoangles(contours,imgSize):
                 listcontours[i][j][0][1] = degrees(q2)
                 
             #Forward Kinematics calculation to verify
-                if j%10 == 0:
+                if j%3 == 0:
                     #forward kinematics:
                     forwardX = a1*cos(q1)+a2*cos(q1+q2)
                     forwardY = a1*sin(q1)+a2*sin(q1+q2)
                     print('endX: ')
                     print(endX)
-                    #print('forwardX: ')
-                    #print(forwardX)
+                    print('forwardX: ')
+                    print(forwardX)
                     print('endY: ')
                     print(endY)
-                    #print('forwardY: ')
-                    #print(forwardY)
+                    print('forwardY: ')
+                    print(forwardY)
                     print('-------')
 
     angles = listcontours

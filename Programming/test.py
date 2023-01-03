@@ -24,15 +24,15 @@ def motors(angles):
 
     # create AX12 instance with ID 2
     # motor homeposition 512 
-    default_speed = 25
+    default_speed = 10
     angle_shift = 60 
     shift_geometry= 25
 
-    motor_id1 = 2
+    motor_id1 = 11
     my_dxl1 = Ax12(motor_id1)  
     my_dxl1.set_moving_speed(default_speed)
 
-    motor_id2 = 11
+    motor_id2 = 2
     my_dxl2 = Ax12(motor_id2)  
     my_dxl2.set_moving_speed(default_speed)
 
@@ -60,14 +60,14 @@ def motors(angles):
             
             for j, pointangles in enumerate(iangles):
 
-                if j%4 == 0: 
+                if j%1 == 0: 
                     #ser.write(b't 120,')
                     # insert here the kinematics integration
                     print("\nPosition of dxl ID: %d is %d " %
                         (motor_object1.id, motor_object1.get_present_position()))
                     # desired angle input
                     #input_pos1 = int(input("goal pos: "))
-                    input_pos1 = int((1024/300)*(pointangles[0][1]+angle_shift))
+                    input_pos1 = int((1024/300)*(pointangles[0][0]+ angle_shift))
                     print(input_pos1)
                     my_dxl1.set_moving_speed(default_speed)
                     
@@ -79,15 +79,16 @@ def motors(angles):
 
                     # desired angle input
                     #input_pos2 = int(input("goal pos: "))
-                    input_pos2 = int((1024/300)*(pointangles[0][0]+angle_shift+shift_geometry))
+                    input_pos2 = int((1024/300)*(pointangles[0][1]+angle_shift + shift_geometry))
 
                     pos1 = motor_object1.get_present_position() 
                     if(pos1-input_pos1 == 0 ): #avoid 0 in denominator 
                         formula = default_speed
                     else:
                         formula = default_speed*(abs(motor_object2.get_present_position()-input_pos2))/abs(pos1-input_pos1)
-                        if (formula > 75):
-                            formula == 75
+                        formula = default_speed
+                        if (formula > 25):
+                            formula == 25
 
                     
                     my_dxl2.set_moving_speed(int(formula))

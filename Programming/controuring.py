@@ -4,14 +4,14 @@ import numpy as np
 
 # read the image
 def contouring():
-    image = cv2.imread(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\testrect1.png")
+    image = cv2.imread(r"C:\Users\Luc Pichot\Documents\GitHub\2D---Plotter-Contourous-\Programming\twitch.png")
 
     #grayscale
     #cv2.imshow('Original',image)
     #cv2.waitKey(0)
     grayscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     grayscale = grayscale.astype("uint8")
-    cv2.imwrite(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\2-grayscale.jpg", grayscale)
+    cv2.imwrite(r"C:\Users\Luc Pichot\Documents\GitHub\2D---Plotter-Contourous-\Programming\2-grayscale.jpg", grayscale)
     #cv2.imshow('Grayscale', grayscale)
     #cv2.waitKey(0)
 
@@ -23,7 +23,7 @@ def contouring():
         #------------------------# canny #------------------------#
     
     canny = cv2.Canny(grayscale,100,200)
-    cv2.imwrite(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\3-canny.jpg", canny)
+    cv2.imwrite(r"C:\Users\Luc Pichot\Documents\GitHub\2D---Plotter-Contourous-\Programming\3-canny.jpg", canny)
     #cv2.imshow("edges",canny)
     #cv2.waitKey(0)
     
@@ -50,7 +50,7 @@ def contouring():
     #cv2.waitKey(0)
 
         #------------------------# FindContours #------------------------#
-    contours, hierarchy = cv2.findContours(canny, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) 
+    contours, hierarchy = cv2.findContours(canny, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) 
     print("Number of Contours found = " + str(len(contours)))
 
         #------------------------# Show Contours #------------------------#
@@ -67,10 +67,11 @@ def contouring():
                 y = n[i + 1] 
                 i=i+1
         
-    cv2.imwrite(r"C:\Users\julia\Documents\GitHub\2D---Plotter-Contourous-\4-contours.jpg", canny)
+    cv2.imwrite(r"C:\Users\Luc Pichot\Documents\GitHub\2D---Plotter-Contourous-\Programming\4-contours.jpg", canny)
     #cv2.imshow('Contours', image)
     #cv2.waitKey(0)
 
+    
     return contours 
 
 #contours are separated in different vectors of point, contours[1][0] gives the first point of the first interesting contour
